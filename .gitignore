@@ -8,6 +8,8 @@ tmp
 # env
 .env
 
+uploads/
+
 # dependencies
 node_modules
 
