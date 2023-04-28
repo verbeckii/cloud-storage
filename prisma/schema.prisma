@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,4 +5,23 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model filies {
+  id           Int       @id(map: "filies_pk") @default(autoincrement())
+  filename     String?   @db.VarChar
+  originalname String?   @db.VarChar
+  size         Int?
+  mimetype     String?   @db.VarChar
+  deletedat    DateTime? @db.Date
+  userid       Int?
+  users        users?    @relation(fields: [userid], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "filies_fk")
+}
+
+model users {
+  id       Int      @id(map: "users_pk") @default(autoincrement())
+  email    String?  @db.VarChar
+  password String?  @db.VarChar
+  fullname String?  @db.VarChar
+  filies   filies[]
 }
