@@ -7,38 +7,48 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { UsersService } from '@cloud-storage/backend/services';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { users as TUsers } from '@prisma/client';
 
 @Controller('users')
 @ApiTags('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  @Post('/create')
+  @ApiResponse({status: 200, description:'create new user'})
+  createUser(@Body() createUserData: TUsers) {
+    return this.usersService.createUser(createUserData);
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  @ApiResponse({status: 200, description:'get all user'})
+  getUsers() {
+    return this.usersService.getUsers();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  @ApiResponse({status: 200, description:'get user by id'})
+  getUserById(@Param('id') id: number) {
+    return this.usersService.getUserById(+id);
+  }
+
+  @Post()
+  @ApiResponse({status: 200, description:'get user by email'})
+  getUserByEmail(@Body('email') email: string) {
+    return this.usersService.getUserByEmail(email);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @ApiResponse({status: 200, description:'update user'})
+  updateUser(@Body() updateUserData: TUsers) {
+    return this.usersService.updateUser(updateUserData);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @ApiResponse({status: 200, description:'delete user'})
+  deleteUser(@Param('id') id: number) {
+    return this.usersService.deleteUser(+id);
   }
 }
