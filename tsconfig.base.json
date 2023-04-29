@@ -18,7 +18,8 @@
       "@cloud-storage/backend/common/prisma-client": [
         "libs/backend/common/prisma-client/src/index.ts"
       ],
-      "@cloud-storage/backend/queries": ["libs/backend/queries/src/index.ts"]
+      "@cloud-storage/backend/queries": ["libs/backend/queries/src/index.ts"],
+      "@cloud-storage/backend/services": ["libs/backend/services/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
