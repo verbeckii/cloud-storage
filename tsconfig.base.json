@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@cloud-storage/backend/common/decorators": [
+        "libs/backend/common/decorators/src/index.ts"
+      ],
       "@cloud-storage/backend/common/prisma-client": [
         "libs/backend/common/prisma-client/src/index.ts"
       ],

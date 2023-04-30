@@ -6,13 +6,17 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from '@cloud-storage/backend/services';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { users as TUsers } from '@prisma/client';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { UserId } from '@cloud-storage/backend/common/decorators';
 
 @Controller('users')
 @ApiTags('users')
+@ApiBearerAuth()
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -50,5 +54,11 @@ export class UsersController {
   @ApiResponse({status: 200, description:'delete user'})
   deleteUser(@Param('id') id: number) {
     return this.usersService.deleteUser(+id);
+  }
+
+  @Get('/info/me')
+  @UseGuards(JwtAuthGuard)
+  async getMe(@UserId() id: number) {
+    return this.usersService.getUserById(id);
   }
 }
