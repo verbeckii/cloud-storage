@@ -7,7 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model filies {
+model users {
+  id       Int     @id(map: "users_pk") @default(autoincrement())
+  email    String? @db.VarChar
+  password String? @db.VarChar
+  fullname String? @db.VarChar
+  files    files[]
+}
+
+model files {
   id           Int       @id(map: "filies_pk") @default(autoincrement())
   filename     String?   @db.VarChar
   originalname String?   @db.VarChar
@@ -16,12 +24,4 @@ model filies {
   deletedat    DateTime? @db.Date
   userid       Int?
   users        users?    @relation(fields: [userid], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "filies_fk")
-}
-
-model users {
-  id       Int      @id(map: "users_pk") @default(autoincrement())
-  email    String?  @db.VarChar
-  password String?  @db.VarChar
-  fullname String?  @db.VarChar
-  filies   filies[]
 }
