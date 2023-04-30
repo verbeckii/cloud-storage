@@ -14,9 +14,14 @@ async function bootstrap() {
     .setDescription('API DOCUMENTATION')
     .setVersion('1.0')
     .addTag('stores')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('/api/docs', app, document);
+  SwaggerModule.setup('/api/docs', app, document, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
   
   await app.listen(port);
   Logger.log(
