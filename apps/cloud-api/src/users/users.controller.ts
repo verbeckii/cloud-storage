@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from '@cloud-storage/backend/services';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { JwtAuthGuard } from '@cloud-storage/backend/auth';
 import { UserId } from '@cloud-storage/backend/common/decorators';
 import { UserCreate, UserUpdate } from '@cloud-storage/backend/common/types';
 import { CreateUserBody, UserProfile, UserResponse } from '@cloud-storage/backend/common/swagger-types';

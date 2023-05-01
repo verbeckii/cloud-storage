@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiConsumes, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { fileStorage } from './storage';
-import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { fileStorage } from '@cloud-storage/backend/common/helpers';
+import { JwtAuthGuard } from '@cloud-storage/backend/auth';
 import { UserId } from '@cloud-storage/backend/common/decorators';
 import { FilesService } from '@cloud-storage/backend/services';
 import { FileType } from '@cloud-storage/backend/common/types';

@@ -4,10 +4,9 @@ import { PassportModule } from '@nestjs/passport';
 import { UserQueries } from '@cloud-storage/backend/queries';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AuthService} from './auth.service';
+import { AuthService} from '@cloud-storage/backend/services';
 import { UsersModule } from '../users/users.module';
-import { JwtStrategy } from './strategies/jwt.strategy';
-import { LocalStrategy } from './strategies/local.strategy';
+import { LocalStrategy, JwtStrategy } from '@cloud-storage/backend/auth';
 
 
 @Module({
