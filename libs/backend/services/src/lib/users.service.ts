@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { users as TUsers } from '@prisma/client';
 import { UserQueries } from '@cloud-storage/backend/queries';
+import { UserCreate, UserUpdate } from '@cloud-storage/backend/common/types';
 
 @Injectable()
 export class UsersService {
@@ -36,7 +36,7 @@ export class UsersService {
     }
   }
 
-  async createUser(data: TUsers) {
+  async createUser(data: UserCreate) {
     try {
       const result = await this.UserQueries.qCreateUser(data);
       return result;
@@ -46,7 +46,7 @@ export class UsersService {
     }
   }
 
-  async updateUser(data: TUsers) {
+  async updateUser(data: UserUpdate) {
     try {
       const result = await this.UserQueries.qUpdateUser(data);
       return result;

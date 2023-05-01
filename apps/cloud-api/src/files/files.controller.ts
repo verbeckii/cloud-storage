@@ -15,6 +15,8 @@ import { fileStorage } from './storage';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { UserId } from '@cloud-storage/backend/common/decorators';
 import { FilesService } from '@cloud-storage/backend/services';
+import { FileType } from '@cloud-storage/backend/common/types';
+import { UserFilesResponse } from '@cloud-storage/backend/common/swagger-types';
 
 @Controller('files')
 @ApiTags('files')
@@ -24,14 +26,14 @@ export class FilesController {
   constructor(private readonly FilesService: FilesService) {}
 
   @Get()
-  @ApiResponse({status: 200, description:'get user files'})
+  @ApiResponse({status: 200, description:'get user files', type: UserFilesResponse})
   @ApiQuery({name: 'type', required: false})
-  getUserFiles(@UserId() userId: number, @Query('type') fileType: any) {
+  getUserFiles(@UserId() userId: number, @Query('type') fileType: FileType) {
     return this.FilesService.getUserFiles(userId, fileType);
   }
 
   @Post()
-  @ApiResponse({status: 200, description:'upload file'})
+  @ApiResponse({status: 200, description:'upload file', type: UserFilesResponse})
   @UseInterceptors(FileInterceptor('file', { storage: fileStorage }))
   @ApiConsumes('multipart/form-data')
   @ApiBody({

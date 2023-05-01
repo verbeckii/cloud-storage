@@ -1,8 +1,9 @@
 import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
-import { users as TUsers } from '@prisma/client';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LocalAuthGuard } from './guards/local.guard';
+import { UserCreate } from '@cloud-storage/backend/common/types';
+import { AuthLoginBody, AuthLoginResponse, AuthRegisterBody, AuthRegisterResponse } from '@cloud-storage/backend/common/swagger-types';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -11,14 +12,16 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  @ApiBody({})
+  @ApiBody({type: AuthLoginBody})
+  @ApiResponse({status: 200, type: [AuthLoginResponse], description: 'Returns token'})
   async login(@Request() req) {
     return this.authService.login(req.user);
   }
 
   @Post('register')
-  @ApiBody({})
-  async register(@Body() data: TUsers) {
+  @ApiBody({type: AuthRegisterBody})
+  @ApiResponse({status: 200, type: [AuthRegisterResponse], description: 'Returns token'})
+  async register(@Body() data: UserCreate) {
     return this.authService.register(data);
   }
 }

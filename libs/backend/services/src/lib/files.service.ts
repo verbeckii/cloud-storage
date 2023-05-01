@@ -1,12 +1,12 @@
+import { File, FileType } from '@cloud-storage/backend/common/types';
 import { FileQueries } from '@cloud-storage/backend/queries';
 import { Injectable } from '@nestjs/common';
-import { users as TUsers } from '@prisma/client';
 
 @Injectable()
 export class FilesService {
   constructor(private readonly FileQueries: FileQueries) {}
 
-  async getUserFiles(userId: number, fileType: any) {
+  async getUserFiles(userId: number, fileType: FileType) {
     try {
       const files = await this.FileQueries.qGetUserFiles(userId, fileType);
       return files;
@@ -16,7 +16,7 @@ export class FilesService {
     }
   }
 
-  async createFile(file: any, userId: number) {
+  async createFile(file: File, userId: number) {
     try {
       const data = {
         filename: file.filename,

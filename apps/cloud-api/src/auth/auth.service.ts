@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UserQueries } from '@cloud-storage/backend/queries';
-import { users as TUsers } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
+import { TUser, UserCreate } from '@cloud-storage/backend/common/types';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +13,7 @@ export class AuthService {
   async validateUser(email: string, password: string) {
     try {
       const user = await this.UserQueries.qGetUserByEmail(email);
-      if (user ?? user.password !== password) {
+      if (user && user?.password === password) {
         const { password, ...userWithoutPassword } = user;
         return userWithoutPassword;
       }
@@ -24,7 +24,7 @@ export class AuthService {
     }
   }
 
-  async register(data: TUsers) {
+  async register(data: UserCreate) {
     try {
       const user = await this.UserQueries.qCreateUser(data);
       return {
@@ -36,7 +36,7 @@ export class AuthService {
     }
   }
 
-  async login(data: TUsers) {
+  async login(data: TUser) {
     try {
       const payload = { id: data.id };
       return { token: this.JwtService.sign(payload) };

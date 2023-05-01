@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { prisma } from '@cloud-storage/backend/common/prisma-client';
-import { users as TUsers } from "@prisma/client";
+import { UserCreate, UserUpdate } from '@cloud-storage/backend/common/types';
 
 @Injectable()
 export class UserQueries {
@@ -27,7 +27,7 @@ export class UserQueries {
     return user;
   }
 
-  async qUpdateUser(data: TUsers) {
+  async qUpdateUser(data: UserUpdate) {
     const user = await prisma.users.update({
       where: {
         id: data.id,
@@ -37,7 +37,7 @@ export class UserQueries {
     return user;
   }
 
-  async qCreateUser(data: TUsers) {
+  async qCreateUser(data: UserCreate) {
     const user = await prisma.users.create({
       data,
     });

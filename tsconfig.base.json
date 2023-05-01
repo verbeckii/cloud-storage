@@ -21,6 +21,12 @@
       "@cloud-storage/backend/common/prisma-client": [
         "libs/backend/common/prisma-client/src/index.ts"
       ],
+      "@cloud-storage/backend/common/swagger-types": [
+        "libs/backend/common/swagger-types/src/index.ts"
+      ],
+      "@cloud-storage/backend/common/types": [
+        "libs/backend/common/types/src/index.ts"
+      ],
       "@cloud-storage/backend/queries": ["libs/backend/queries/src/index.ts"],
       "@cloud-storage/backend/services": ["libs/backend/services/src/index.ts"]
     }
