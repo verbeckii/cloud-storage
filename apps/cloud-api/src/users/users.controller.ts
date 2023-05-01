@@ -18,47 +18,47 @@ import { UserId } from '@cloud-storage/backend/common/decorators';
 @ApiTags('users')
 @ApiBearerAuth()
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly UsersService: UsersService) {}
 
   @Post('/create')
   @ApiResponse({status: 200, description:'create new user'})
   createUser(@Body() createUserData: TUsers) {
-    return this.usersService.createUser(createUserData);
+    return this.UsersService.createUser(createUserData);
   }
 
   @Get()
   @ApiResponse({status: 200, description:'get all user'})
   getUsers() {
-    return this.usersService.getUsers();
+    return this.UsersService.getUsers();
   }
 
   @Get(':id')
   @ApiResponse({status: 200, description:'get user by id'})
   getUserById(@Param('id') id: number) {
-    return this.usersService.getUserById(+id);
+    return this.UsersService.getUserById(+id);
   }
 
   @Post()
   @ApiResponse({status: 200, description:'get user by email'})
   getUserByEmail(@Body('email') email: string) {
-    return this.usersService.getUserByEmail(email);
+    return this.UsersService.getUserByEmail(email);
   }
 
   @Patch(':id')
   @ApiResponse({status: 200, description:'update user'})
   updateUser(@Body() updateUserData: TUsers) {
-    return this.usersService.updateUser(updateUserData);
+    return this.UsersService.updateUser(updateUserData);
   }
 
   @Delete(':id')
   @ApiResponse({status: 200, description:'delete user'})
   deleteUser(@Param('id') id: number) {
-    return this.usersService.deleteUser(+id);
+    return this.UsersService.deleteUser(+id);
   }
 
   @Get('/info/me')
   @UseGuards(JwtAuthGuard)
   async getMe(@UserId() id: number) {
-    return this.usersService.getUserById(id);
+    return this.UsersService.getUserById(id);
   }
 }

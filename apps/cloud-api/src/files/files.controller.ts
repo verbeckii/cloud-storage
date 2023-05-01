@@ -6,21 +6,32 @@ import {
   ParseFilePipe,
   MaxFileSizeValidator,
   UseGuards,
+  Get,
+  Query,
 } from '@nestjs/common';
-import { FilesService } from './files.service';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { fileStorage } from './storage';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { UserId } from '@cloud-storage/backend/common/decorators';
+import { FilesService } from '@cloud-storage/backend/services';
 
 @Controller('files')
 @ApiTags('files')
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class FilesController {
-  constructor(private readonly filesService: FilesService) {}
+  constructor(private readonly FilesService: FilesService) {}
+
+  @Get()
+  @ApiResponse({status: 200, description:'get user files'})
+  @ApiQuery({name: 'type', required: false})
+  getUserFiles(@UserId() userId: number, @Query('type') fileType: any) {
+    return this.FilesService.getUserFiles(userId, fileType);
+  }
 
   @Post()
+  @ApiResponse({status: 200, description:'upload file'})
   @UseInterceptors(FileInterceptor('file', { storage: fileStorage }))
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -40,8 +51,9 @@ export class FilesController {
         validators: [new MaxFileSizeValidator({ maxSize: 1024 * 1024 * 5 })],
       })
     )
-    file: Express.Multer.File
+    file: Express.Multer.File,
+    @UserId() userId: number
   ) {
-    return file;
+    return this.FilesService.createFile(file, userId);
   }
 }

@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { FilesService } from './files.service';
 import { FilesController } from './files.controller';
+import { FilesService } from '@cloud-storage/backend/services';
+import { FileQueries } from '@cloud-storage/backend/queries';
 
 @Module({
   controllers: [FilesController],
-  providers: [FilesService],
+  providers: [FilesService, FileQueries],
 })
 export class FilesModule {}

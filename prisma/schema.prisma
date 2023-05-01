@@ -11,7 +11,7 @@ model users {
   id       Int     @id(map: "users_pk") @default(autoincrement())
   email    String? @db.VarChar
   password String? @db.VarChar
-  fullname String? @db.VarChar
+  fullName String? @db.VarChar
   files    files[]
 }
 
@@ -21,7 +21,7 @@ model files {
   originalname String?   @db.VarChar
   size         Int?
   mimetype     String?   @db.VarChar
-  deletedat    DateTime? @db.Date
-  userid       Int?
-  users        users?    @relation(fields: [userid], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "filies_fk")
+  deletedAt    DateTime? @db.Date
+  userId       Int?
+  users        users?    @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "filies_fk")
 }

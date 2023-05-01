@@ -1,1 +1,2 @@
-export * from './lib/postgress/Users';
+export * from './lib/postgress/file-queries';
+export * from './lib/postgress/user-queries';

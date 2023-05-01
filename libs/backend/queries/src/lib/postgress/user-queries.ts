@@ -3,7 +3,7 @@ import { prisma } from '@cloud-storage/backend/common/prisma-client';
 import { users as TUsers } from "@prisma/client";
 
 @Injectable()
-export class Users {
+export class UserQueries {
 
   async qGetUsers() {
     const users = await prisma.users.findMany();

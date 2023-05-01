@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { users as TUsers } from '@prisma/client';
-import { Users } from '@cloud-storage/backend/queries';
+import { UserQueries } from '@cloud-storage/backend/queries';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly Users: Users) {}
+  constructor(private readonly UserQueries: UserQueries) {}
 
   async getUsers() {
     try {
-      const result = await this.Users.qGetUsers();
+      const result = await this.UserQueries.qGetUsers();
       return result;
     } catch (error) {
       console.error(error);
@@ -18,7 +18,7 @@ export class UsersService {
 
   async getUserById(id: number) {
     try {
-      const result = await this.Users.qGetUserById(id);
+      const result = await this.UserQueries.qGetUserById(id);
       return result;
     } catch (error) {
       console.error(error);
@@ -28,7 +28,7 @@ export class UsersService {
 
   async getUserByEmail(email: string) {
     try {
-      const result = await this.Users.qGetUserByEmail(email);
+      const result = await this.UserQueries.qGetUserByEmail(email);
       return result;
     } catch (error) {
       console.error(error);
@@ -38,7 +38,7 @@ export class UsersService {
 
   async createUser(data: TUsers) {
     try {
-      const result = await this.Users.qCreateUser(data);
+      const result = await this.UserQueries.qCreateUser(data);
       return result;
     } catch (error) {
       console.error(error);
@@ -48,7 +48,7 @@ export class UsersService {
 
   async updateUser(data: TUsers) {
     try {
-      const result = await this.Users.qUpdateUser(data);
+      const result = await this.UserQueries.qUpdateUser(data);
       return result;
     } catch (error) {
       console.error(error);
@@ -58,7 +58,7 @@ export class UsersService {
 
   async deleteUser(id: number) {
     try {
-      const result = await this.Users.qDeleteUser(id);
+      const result = await this.UserQueries.qDeleteUser(id);
       return result;
     } catch (error) {
       console.error(error);

@@ -1,11 +1,11 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { Users } from '@cloud-storage/backend/queries';
+import { UserQueries } from '@cloud-storage/backend/queries';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor(private Users: Users) {
+  constructor(private UserQueries: UserQueries) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
@@ -14,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    const user = await this.Users.qGetUserById(+payload.id);
+    const user = await this.UserQueries.qGetUserById(+payload.id);
     
     if (!user) {
       throw new UnauthorizedException('You have no permission');

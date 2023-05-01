@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
-import { Users } from '@cloud-storage/backend/queries';
+import { UserQueries } from '@cloud-storage/backend/queries';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthService} from './auth.service';
@@ -26,6 +26,6 @@ import { LocalStrategy } from './strategies/local.strategy';
     UsersModule
   ],
   controllers: [AuthController],
-  providers: [AuthService, Users, JwtStrategy, LocalStrategy],
+  providers: [AuthService, UserQueries, JwtStrategy, LocalStrategy],
 })
 export class AuthModule {}
