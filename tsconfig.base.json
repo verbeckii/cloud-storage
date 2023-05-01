@@ -32,7 +32,37 @@
         "libs/backend/common/types/src/index.ts"
       ],
       "@cloud-storage/backend/queries": ["libs/backend/queries/src/index.ts"],
-      "@cloud-storage/backend/services": ["libs/backend/services/src/index.ts"]
+      "@cloud-storage/backend/services": ["libs/backend/services/src/index.ts"],
+      "@cloud-storage/frontend/shared/components": [
+        "libs/frontend/shared/components/src/index.ts"
+      ],
+      "@cloud-storage/frontend/shared/components/server": [
+        "libs/frontend/shared/components/src/server.ts"
+      ],
+      "@cloud-storage/frontend/shared/configs": [
+        "libs/frontend/shared/configs/src/index.ts"
+      ],
+      "@cloud-storage/frontend/shared/configs/server": [
+        "libs/frontend/shared/configs/src/server.ts"
+      ],
+      "@cloud-storage/frontend/shared/constants": [
+        "libs/frontend/shared/constants/src/index.ts"
+      ],
+      "@cloud-storage/frontend/shared/constants/server": [
+        "libs/frontend/shared/constants/src/server.ts"
+      ],
+      "@cloud-storage/frontend/shared/functions": [
+        "libs/frontend/shared/functions/src/index.ts"
+      ],
+      "@cloud-storage/frontend/shared/functions/server": [
+        "libs/frontend/shared/functions/src/server.ts"
+      ],
+      "@cloud-storage/frontend/shared/hooks": [
+        "libs/frontend/shared/hooks/src/index.ts"
+      ],
+      "@cloud-storage/frontend/shared/hooks/server": [
+        "libs/frontend/shared/hooks/src/server.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
