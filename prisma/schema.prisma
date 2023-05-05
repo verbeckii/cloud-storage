@@ -25,3 +25,15 @@ model files {
   userId       Int?
   users        users?    @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "filies_fk")
 }
+
+model Post {
+  id    Int    @id @default(autoincrement())
+  title String
+  tags  Tag[]  @relation("PostToTag")
+}
+
+model Tag {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  posts Post[] @relation("PostToTag")
+}
