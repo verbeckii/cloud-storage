@@ -34,10 +34,13 @@ model Post {
 
 model PostTags {
   id     Int   @id @default(autoincrement())
-  post   Post? @relation(fields: [postId], references: [id])
-  tag    Tag?  @relation(fields: [tagId], references: [id])
   postId Int?
   tagId  Int?
+  post   Post? @relation(fields: [postId], references: [id])
+  tag    Tag?  @relation(fields: [tagId], references: [id])
+
+  @@unique([postId, tagId], map: "post_tag_idx")
+  @@index([postId], map: "posttags_postid_idx")
 }
 
 model Tag {
