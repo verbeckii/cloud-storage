@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { PostsController } from './posts.controller';
-import { PostQueries } from '@cloud-storage/backend/queries';
+import { PostQueries, PostTagsQueries } from '@cloud-storage/backend/queries';
 
 @Module({
   controllers: [PostsController],
-  providers: [PostQueries],
+  providers: [PostQueries, PostTagsQueries],
 })
 export class PostsModule {}

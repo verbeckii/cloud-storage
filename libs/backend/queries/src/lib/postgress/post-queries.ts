@@ -7,7 +7,7 @@ export class PostQueries {
     const post = await prisma.post.create({
         data: {
           title: 'Types of relations',
-          tags: { create: [{ name: 'dev' }, { name: 'prisma' }] },
+          tags: { create: [{ tag: { create: { name: 'dev' } } }, { tag: { create: { name: 'prisma' } } },],},
         },
       })
     return post;
@@ -15,20 +15,12 @@ export class PostQueries {
   
   async qGetPosts() {
     const posts = await prisma.post.findMany({
-        include: { tags: true },
+        include: { tags: { include: { tag: true } } },
       })
-    return posts;
-  }
 
-  async qUpdatePosts() {
-    const posts = await prisma.post.update({
-        where: { id: 1 },
-        data: {
-            title: 'Prisma is awesome!',
-            tags: { set: [{ id: 1 }, { id: 2 }],  },
-          },
-          include: { tags: true },
-      })
+    //   const result = posts.map((post) => {
+    //     return { ...post, tags: post.tags.map((tag) => tag.tag) }
+    //   })
     return posts;
   }
   

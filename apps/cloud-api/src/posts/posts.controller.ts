@@ -1,12 +1,15 @@
 import { Controller, Get, Post, Put } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { PostQueries } from '@cloud-storage/backend/queries';
+import { PostQueries, PostTagsQueries } from '@cloud-storage/backend/queries';
 
 @Controller('posts')
 @ApiTags('posts')
 @ApiBearerAuth()
 export class PostsController {
-  constructor(private readonly PostQueries: PostQueries) {}
+  constructor(
+    private readonly PostQueries: PostQueries,
+    private readonly PostTagsQueries: PostTagsQueries
+  ) {}
 
   @Post('/create')
   createPost() {
@@ -20,6 +23,6 @@ export class PostsController {
 
   @Put()
   updatePosts() {
-    return this.PostQueries.qUpdatePosts()
+    return this.PostTagsQueries.runQueriesInTransaction()
   }
 }
